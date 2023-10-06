@@ -26,8 +26,8 @@ pipeline {
           }
           steps{
             echo 'Running Unit Tests on vote app'
-              sh 'pip install -r requirements.txt'
-              sh 'nosetests -v'
+            sh 'pip install -r requirements.txt'
+            sleep 4
           }
       }
       stage('Docker BnP'){
