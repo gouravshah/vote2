@@ -13,9 +13,7 @@ pipeline {
           }
           steps{
             echo 'Compiling vote app'
-            dir('vote'){
               sh 'pip install -r requirements.txt'
-            }
           }
 
       }
@@ -28,10 +26,8 @@ pipeline {
           }
           steps{
             echo 'Running Unit Tests on vote app'
-            dir('vote'){
               sh 'pip install -r requirements.txt'
               sh 'nosetests -v'
-            }
           }
       }
       stage('Docker BnP'){
@@ -43,7 +39,7 @@ pipeline {
             echo 'Packaging vote app with docker'
             script{
               docker.withRegistry('https://index.docker.io/v1/', 'dockerlogin') {
-                  def voteImage = docker.build("initcron/vote:v${env.BUILD_ID}", "./vote")
+                  def voteImage = docker.build("initcron/vote:v${env.BUILD_ID}", "./")
                   voteImage.push()
                   voteImage.push("dev")
               }
